@@ -20,7 +20,7 @@ class ClientController extends FOSRestController
     public function getAllAction()
     {
       $restresult = $this->getDoctrine()->getRepository('AppBundle:Client')->findAll();
-        if (!empty($restresult)) {
+        if (empty($restresult)) {
           return new View("pas de client(s)", Response::HTTP_NOT_FOUND);
      }else
         return $restresult;
