@@ -32,7 +32,7 @@ class ClientController extends FOSRestController
          */
         public function getOneAction($id)
         {
-          $singleresult = $this->getDoctrine()->getRepository('AppBundle:Client')->find($id);
+          $singleresult = $this->getDoctrine()->getRepository('AppBundle:Client')->findOneById($id);
           if (empty($singleresult)) {
           return new View("client non trouvé", Response::HTTP_NOT_FOUND);
           }
@@ -42,20 +42,55 @@ class ClientController extends FOSRestController
 
 
 
-            /**
-           * @Rest\Put("/client/{id}")
+           /**
+           * @Rest\Post("/client")
            */
 
-          public function updateAction($id,Request $request)
+          public function newAction(Client $client,Request $request)
           { 
-         
-//          $name = $request->get('name');
-//          $role = $request->get('role');
+
           $em = $this->getDoctrine()->getManager();
-          $client = $this->getDoctrine()->getRepository('AppBundle:Client')->find($id);
-          if (empty($user)) {
-            return new View("user not found", Response::HTTP_NOT_FOUND);
-          } 
+          if (empty($client)) {
+            return new View("client non trouvé", Response::HTTP_NOT_FOUND);
+          } elseif(!empty($client)){
+
+            $_client = $this->getDoctrine()->getRepository('AppBundle:Client')->findOneById($client->getId());
+
+            if($_client!=null){
+          return new View(" Ce client existe déjà", Response::HTTP_FORBIDDEN);
+            }else{
+              $em->persist($client);
+              $em->flush();
+              return new View("Enregistrement ok", Response::HTTP_OK);
+
+            }
+            
+          }
+         
+          }
+
+
+
+
+            /**
+           * @Rest\Put("/{id}/client")
+           */
+
+          public function updateAction(Client $client,Request $request)
+          { 
+
+          if (empty($client)) {
+            return new View("client non trouvé", Response::HTTP_NOT_FOUND);
+          } elseif(!empty($client)){
+
+            $_client = $this->getDoctrine()->getRepository('AppBundle:Client')->findOneById($client->getId());
+
+            if($_client!=null){
+              $this->getDoctrine()->getManager()->flush();
+
+            }
+            
+          }
          
           }
 
