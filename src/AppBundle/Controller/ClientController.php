@@ -101,11 +101,11 @@ class ClientController extends FOSRestController
       */
     public function deleteAction($id)
     {
-       // $data = new Client();
-        $em = $this->getDoctrine()->getManager();
+        
+      $em = $this->getDoctrine()->getManager();
         $client = $this->getDoctrine()->getRepository('AppBundle:Client')->find($id);
       if (empty($client)) {
-        return new View("user not found", Response::HTTP_NOT_FOUND);
+        return new View("client not found", Response::HTTP_NOT_FOUND);
       }
       else {
         $em->remove($client);
