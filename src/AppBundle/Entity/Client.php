@@ -147,6 +147,11 @@ class Client
      */
     private $encolure;
 
+    /**
+     * @var ArrayCollection commande
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Commande", mappedBy="client", cascade={"persist", "remove", "merge"})
+     */
+    private $commande;
 
     /**
      * Get id
@@ -588,6 +593,21 @@ class Client
     public function getEncolure()
     {
         return $this->encolure;
+    }
+     /**
+     * @return ArrayCollection
+     */
+    public function getCommande()
+    {
+        return $this->commande;
+    }
+
+    /**
+     * @param ArrayCollection $commande
+     */
+    public function setCommande($commande)
+    {
+        $this->commande = $commande;
     }
 }
 
