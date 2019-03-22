@@ -42,6 +42,19 @@ class Modele
      */
     private $description;
 
+     /**
+     * @var ArrayCollection tenue
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Tenue", mappedBy="modele", cascade={"persist", "remove", "merge"})
+     */
+    private $tenue;
+
+    /**
+     * @var TypeModele $typeModele
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\TypeModele" ,inversedBy="modele")
+     * @ORM\JoinColumn(name="typeModele", referencedColumnName="id",nullable=true)
+     */
+    private $typeModele;
+
 
     /**
      * Get id
@@ -124,5 +137,37 @@ class Modele
     {
         return $this->description;
     }
+     /**
+     * @return ArrayCollection
+     */
+    public function getTenue()
+    {
+        return $this->tenue;
+    }
+
+    /**
+     * @param ArrayCollection $tenue
+     */
+    public function setTenue($tenue)
+    {
+        $this->tenue = $tenue;
+    }
+
+    /**
+     * @return TypeModele
+     */
+    public function getTypeModele()
+    {
+        return $this->typeModele;
+    }
+
+    /**
+     * @param TypeModele $typeModele
+     */
+    public function setTypeModele($typeModele)
+    {
+        $this->typeModele = $typeModele;
+    }
+
 }
 
