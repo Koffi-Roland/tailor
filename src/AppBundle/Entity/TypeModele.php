@@ -41,7 +41,11 @@ class TypeModele
      * @ORM\Column(name="etat", type="boolean")
      */
     private $etat;
-
+    /**
+     * @var ArrayCollection modele
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Modele", mappedBy="typeModele", cascade={"persist", "remove", "merge"})
+     */
+    private $modele;
 
     /**
      * Get id
@@ -123,6 +127,21 @@ class TypeModele
     public function getEtat()
     {
         return $this->etat;
+    }
+     /**
+     * @return ArrayCollection
+     */
+    public function getModele()
+    {
+        return $this->modele;
+    }
+
+    /**
+     * @param ArrayCollection $modele
+     */
+    public function setModele($modele)
+    {
+        $this->modele = $modele;
     }
 }
 
