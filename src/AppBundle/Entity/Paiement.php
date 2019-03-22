@@ -34,7 +34,12 @@ class Paiement
      * @ORM\Column(name="date_paiement", type="datetime")
      */
     private $datePaiement;
-
+    /**
+     * @var Commande $commande
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Commande" ,inversedBy="paiement")
+     * @ORM\JoinColumn(name="commande", referencedColumnName="id",nullable=true)
+     */
+    private $commande;
 
     /**
      * Get id
@@ -92,6 +97,21 @@ class Paiement
     public function getDatePaiement()
     {
         return $this->datePaiement;
+    }
+    /**
+     * @return Commande
+     */
+    public function getCommande()
+    {
+        return $this->commande;
+    }
+
+    /**
+     * @param Commande $commande
+     */
+    public function setCommande($commande)
+    {
+        $this->commande = $commande;
     }
 }
 
