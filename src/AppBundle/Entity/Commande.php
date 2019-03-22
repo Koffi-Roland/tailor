@@ -48,7 +48,25 @@ class Commande
      * @ORM\Column(name="etat_commande", type="boolean")
      */
     private $etatCommande;
+   /**
+     * @var Client $client
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Client" ,inversedBy="commande")
+     * @ORM\JoinColumn(name="client", referencedColumnName="id",nullable=true)
+     */
+    private $client;
 
+
+    /**
+     * @var ArrayCollection paiement
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Paiement", mappedBy="commande", cascade={"persist", "remove", "merge"})
+     */
+    private $paiement;
+
+    /**
+     * @var ArrayCollection tenue
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Tenue", mappedBy="commande", cascade={"persist", "remove", "merge"})
+     */
+    private $tenue;
 
     /**
      * Get id
@@ -154,6 +172,54 @@ class Commande
     public function getEtatCommande()
     {
         return $this->etatCommande;
+    }
+    
+    /**
+     * @return Client
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * @param Client $client
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getPaiement()
+    {
+        return $this->paiement;
+    }
+
+    /**
+     * @param ArrayCollection $paiement
+     */
+    public function setPaiement($paiement)
+    {
+        $this->paiement = $paiement;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getTenue()
+    {
+        return $this->tenue;
+    }
+
+    /**
+     * @param ArrayCollection $tenue
+     */
+    public function setTenue($tenue)
+    {
+        $this->tenue = $tenue;
     }
 }
 
